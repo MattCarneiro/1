@@ -13,7 +13,7 @@ use actix_web::{post, web, App, HttpServer, Responder, HttpResponse};
     #[post("/check-downloadable")]
     async fn check_downloadable(req: web::Json<CheckRequest>) -> impl Responder {
       let api_key = env::var("GOOGLE_DRIVE_API_KEY").expect("API key not set");
-      let client = Client::builder().use_rustls_tls().build().unwrap();
+      let client = Client::new();
       let id = extract_id_from_link(&req.link);
 
       if id.is_none() {
